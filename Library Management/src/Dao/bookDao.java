@@ -1,13 +1,13 @@
 package Dao;
 import java.sql.*;
-import SQLConnect.SQLConnect;
 import entity.book;
+import mysql.ConnPool;
 public class bookDao {
 	//往contents表中插入信息
 	public int insertBook(book book1) {
 		int rs = 0;
-		SQLConnect conn = new SQLConnect();
-		Connection con = conn.getConn();
+		ConnPool conn = new ConnPool();
+		Connection con = conn.getOneCon();
 		PreparedStatement pstm=null;
 		String sql_insert = "insert into contents(book_id,name,author,publish,ISBN,introduction,language,price,pub_data,class_id,surplus) values (?,?,?,?,?,?,?,?,?,?,?)";
 		try {
@@ -26,6 +26,8 @@ public class bookDao {
 			rs = pstm.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			conn.releaseCon(con);
 		}
 		return rs;
 	}
@@ -33,14 +35,16 @@ public class bookDao {
 	public ResultSet queryBook() {
 		PreparedStatement pstm=null;
 		ResultSet rs = null;
-		SQLConnect conn = new SQLConnect();
-		Connection con = conn.getConn();
+		ConnPool conn = new ConnPool();
+		Connection con = conn.getOneCon();
 		String sql_query = "select * from contents";
 		try {
 			pstm = con.prepareStatement(sql_query);
 			rs = pstm.executeQuery();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			conn.releaseCon(con);
 		}
 		return rs;
 	}
@@ -48,8 +52,8 @@ public class bookDao {
 	public ResultSet selectBook(book book1) {
 		PreparedStatement pstm=null;
 		ResultSet rs = null;
-		SQLConnect conn = new SQLConnect();
-		Connection con = conn.getConn();
+		ConnPool conn = new ConnPool();
+		Connection con = conn.getOneCon();
 		String sql_select = "select * from contents where book_id=?";
 		try {
 			
@@ -58,13 +62,15 @@ public class bookDao {
 			rs = pstm.executeQuery();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			conn.releaseCon(con);
 		}
 		return rs;
 	}
-	public int updateBook(book,book1) {
+	public int updateBook(book book1) {
 		int rs = 0;
-		SQLConnect conn = new SQLConnect();
-		Connection con = conn.getConn();
+		ConnPool conn = new ConnPool();
+		Connection con = conn.getOneCon();
 		PreparedStatement pstm=null;
 		String sql_update="update contents set name=?,author=?,publish=?,ISBN=?,introduction=?,language=?,price=?,pub_data=?,class_id=?,surplus=? where book_id=?";
 		try {
@@ -83,13 +89,15 @@ public class bookDao {
 			rs = pstm.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			conn.releaseCon(con);
 		}
 		return rs;
 	}
 	public int deleteBook(book book1) {
 		int rs = 0;
-		SQLConnect conn = new SQLConnect();
-		Connection con = conn.getConn();
+		ConnPool conn = new ConnPool();
+		Connection con = conn.getOneCon();
 		PreparedStatement pstm=null;
 		String sql_delete="delete from contents where book_id=?";
 		try {
@@ -98,6 +106,8 @@ public class bookDao {
 			rs = pstm.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			conn.releaseCon(con);
 		}
 		return rs;
 	}
