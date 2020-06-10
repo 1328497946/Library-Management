@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>图书馆管理系统</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 <header>
@@ -19,10 +20,10 @@
 		<li><a href="#">借阅历史</a></li>
 		<li><a href="#">违章信息</a></li>
 		<li><a href="#">读者规则</a></li>
-		<li><a href="login.jsp">管理员界面</a>
+		<li><a href="admin-login.jsp">管理员界面</a>
 	</ul>
 </header>
-<h2>最新上架的5本书</h2>
+<h2>最新上架的10本书</h2>
 <table>
 	<tr><th>书名</th><th>作者</th><th>出版社</th><th>出版日期</th><th>简介</th><th>ISBN</th><th>语言</th><th>价格</th><th>库存</th></tr>
 	<jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
@@ -37,7 +38,7 @@
 				return;
 			}
 			st = con.createStatement();
-			rs = st.executeQuery("select * from contents limit 0,5");
+			rs = st.executeQuery("select * from contents limit 0,10");
 			while(rs.next()) {
 				out.print("<tr>");
 				out.print("<td>"+rs.getString("name")+"</td>");

@@ -30,8 +30,9 @@ public class AdminCheck extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		//response.sendRedirect("login.jsp");
+		response.setContentType("text/html; charset=utf-8");
+		response.getWriter().print("非法访问，3秒后自动跳转");
+		response.setHeader("Refresh", "3;URL=admin-login.jsp");
 	}
 
 	/**
@@ -44,52 +45,48 @@ public class AdminCheck extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.getWriter().println(e.getStackTrace());
 		}
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8", "root", "root");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.getWriter().println(e.getStackTrace());
 		}
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		Statement st = null;
 		ResultSet rs = null;
-		request.setCharacterEncoding("utf-8");
-		String sub = request.getParameter("submit");
-		if(sub == null) {
-			response.getWriter().append("<p>非法访问</p>");
-			return;
-		} else if(sub == "") {
-			response.getWriter().append("<p>请输如用户名字和密码！</p>");
+		if(username == "" || password == "") {
+			response.getWriter().println("<p>请输如用户名字与密码！</p>");
 			//out.print("请输如用户名字和密码!");
-			return;
+			response.setHeader("Refresh", "3;URL=admin-login.jsp");
 		}
 		try {
 			st = con.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.getWriter().println(e.getStackTrace());
 		}
 		try {
 			rs = st.executeQuery("select * from dbuser where username='" + username + "' and password='" + password + "'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.getWriter().println(e.getStackTrace());
 		}
 		try {
 			if(rs.next()) {
 				//out.print("登录成功");
-				response.getWriter().append("<p>登陆成功</p>");
 				HttpSession session =  request.getSession();
 				session.setAttribute("login", true);
 				response.sendRedirect("admin-manager.jsp");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.getWriter().println(e.getStackTrace());
 		}
 	}
 

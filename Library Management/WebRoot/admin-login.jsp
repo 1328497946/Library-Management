@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AdminLogin</title>
+<title>管理员登录</title>
+<link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
 <body>
 <form action="AdminCheck" method="post">
