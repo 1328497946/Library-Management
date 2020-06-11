@@ -11,12 +11,12 @@
 <body>
 <%
 	String str = (String)session.getAttribute("user");
-	if(str == null) {
+	String type = (String)session.getAttribute("type");
+	if(str == null || type != "admin") {
 		response.getWriter().print("非法访问，3秒后自动跳转");
 		response.setHeader("Refresh", "3;URL=admin-login.jsp");
 		return;
 	}
-	String type = (String)session.getAttribute("type");
 	if(type == "admin") {
 		str = "管理用户:" + str;
 	}

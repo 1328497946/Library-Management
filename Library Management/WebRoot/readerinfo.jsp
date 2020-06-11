@@ -5,20 +5,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>读者信息</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 <h1>读者信息</h1>
 <%
-	String str = (String)session.getAttribute("type");
-	if(str == "admin" || str == null) {
-		response.sendRedirect("reader-login.jsp");
+	String str = (String)session.getAttribute("user");
+	String type = (String)session.getAttribute("type");
+	if(str == null || type != "reader") {
+		response.getWriter().print("非法访问，3秒后自动跳转");
+		response.setHeader("Refresh", "3;URL=reader-login.jsp");
+		return;
+	}
+	request.setCharacterEncoding("utf-8");
+	String username = request.getParameter("reader_id");
+	if(username == null) {
+		response.setHeader("Refresh", "3;URL=reader-login.jsp");
 		return;
 	}
 %>
 <jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
-<h1>所有读者信息</h1>
 <table>
 	<tr><th>姓名</th><th>性别</th><th>生日</th><th>地址</th><th>电话</th><th>邮箱</th></tr>
 	<%
@@ -32,7 +39,7 @@
 				return;
 			}
 			st = con.createStatement();
-			rs = st.executeQuery("select * from readers");
+			rs = st.executeQuery("select * from readers where reader_id="+username);
 			while(rs.next()) {
 				out.print("<tr>");
 				out.print("<td>"+rs.getString("name")+"</td>"); 

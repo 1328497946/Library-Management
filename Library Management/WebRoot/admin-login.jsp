@@ -21,7 +21,8 @@
 </header>
 <%
 	String str = (String)session.getAttribute("user");
-	if(null != str) {
+	String type = (String)session.getAttribute("type");
+	if(null != str && type == "admin") {
 		response.sendRedirect("admin-manager.jsp");
 		return;
 	}

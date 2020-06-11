@@ -25,7 +25,7 @@
 <header>
 	<ul>
 		<li><a href="booksearch.jsp">图书查询</a></li>
-		<li><a href="readerinfo.jsp">读者信息</a></li>
+		<li><a href="reader-login.jsp">读者信息</a></li>
 		<li><a href="#">借阅历史</a></li>
 		<li><a href="#">违章信息</a></li>
 		<li><a href="#">读者规则</a></li>
