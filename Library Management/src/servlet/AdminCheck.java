@@ -64,6 +64,7 @@ public class AdminCheck extends HttpServlet {
 			response.getWriter().println("<p>请输如用户名字与密码！</p>");
 			//out.print("请输如用户名字和密码!");
 			response.setHeader("Refresh", "3;URL=admin-login.jsp");
+			return;
 		}
 		try {
 			st = con.createStatement();
@@ -81,8 +82,13 @@ public class AdminCheck extends HttpServlet {
 			if(rs.next()) {
 				//out.print("登录成功");
 				HttpSession session =  request.getSession();
-				session.setAttribute("login", true);
+				session.setAttribute("user", username);
+				session.setAttribute("type", "admin");
 				response.sendRedirect("admin-manager.jsp");
+			} else {
+				response.getWriter().println("用户名密码错误!3秒后自动跳转");
+				//out.print("用户名密码错误!3秒后自动跳转");
+				response.setHeader("Refresh", "3;URL=admin-login.jsp");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

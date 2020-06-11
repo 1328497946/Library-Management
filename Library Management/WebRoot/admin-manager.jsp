@@ -5,18 +5,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>图书馆管理管理界面</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 <%
-	Boolean str = (Boolean)session.getAttribute("login");
+	String str = (String)session.getAttribute("user");
 	if(str == null) {
-		response.sendRedirect("admin-login.jsp");
+		response.getWriter().print("非法访问，3秒后自动跳转");
+		response.setHeader("Refresh", "3;URL=admin-login.jsp");
 		return;
+	}
+	String type = (String)session.getAttribute("type");
+	if(type == "admin") {
+		str = "管理用户:" + str;
+	}
+	if(type == "reader") {
+		str = "读者:" + str;
 	}
 %>
 </body>
+<header>
+	<ul>
+		<li><a href="booksearch.jsp">图书查询</a></li>
+		<li><a href="readerinfo.jsp">读者信息</a></li>
+		<li><a href="#">借阅历史</a></li>
+		<li><a href="#">违章信息</a></li>
+		<li><a href="#">读者规则</a></li>
+		<li><a href="admin-login.jsp">管理员界面</a>
+	</ul>
+	<h1><a href="index.jsp">图书管理系统</a></h1>
+	<p><%
+		out.print(str);
+	%></p>
+</header>
 <h1>图书馆所有的书籍</h1>
 <table>
 	<tr><th>书名</th><th>作者</th><th>出版社</th><th>出版日期</th><th>简介</th><th>ISBN</th><th>语言</th><th>价格</th><th>库存</th></tr>
@@ -39,7 +61,7 @@
 				out.print("<td>"+rs.getString("author")+"</td>");
 				out.print("<td>"+rs.getString("publish")+"</td>");
 				out.print("<td>"+rs.getString("pub_date")+"</td>");
-				out.print("<td>"+rs.getString("introduction").subSequence(0,20)+"...</td>");
+				out.print("<td>"+rs.getString("introduction").subSequence(0,7)+"...</td>");
 				out.print("<td>"+rs.getString("ISBN")+"</td>");
 				out.print("<td>"+rs.getString("language")+"</td>");
 				out.print("<td>"+rs.getString("price")+"</td>");
@@ -78,7 +100,7 @@
 				out.print("<td>"+rs.getString("name")+"</td>"); 
 				out.print("<td>"+rs.getString("sex")+"</td>");
 				out.print("<td>"+rs.getString("birth")+"</td>");
-				out.print("<td>"+rs.getString("address") + "</td>");
+				out.print("<td>"+rs.getString("address")+"</td>");
 				out.print("<td>"+rs.getString("phone")+"</td>");
 				out.print("<td>"+rs.getString("email")+"</td>");
 				out.print("</tr>");

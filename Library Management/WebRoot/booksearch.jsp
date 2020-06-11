@@ -6,15 +6,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>booksearch</title>
+<title>图书搜索</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+<header>
+	<ul>
+		<li><a href="booksearch.jsp">图书查询</a></li>
+		<li><a href="readerinfo.jsp">读者信息</a></li>
+		<li><a href="#">借阅历史</a></li>
+		<li><a href="#">违章信息</a></li>
+		<li><a href="#">读者规则</a></li>
+		<li><a href="admin-login.jsp">管理员界面</a>
+	</ul>
+	<h1><a href="index.jsp">图书管理系统</a></h1>
+</header>
 <form action="" method="get">
 	<label>Book Search
 		<input type="search" name="search">
 		<input type="submit" value="Search">
 	</label>
 </form>
+<jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
+<table>
 <%
 	String str = request.getParameter("search");
 	if(str != null && str != "")
@@ -23,40 +37,35 @@
 		Statement st = null;
 		ResultSet rs = null;
 		Connection conn = null;
-		try{  
-			Class.forName("com.mysql.jdbc.Driver");  ////驱动程序名
-			String url = "jdbc:mysql://localhost:3306/library"; //数据库名
-			String username = "root";  //数据库用户名
-			String password = "root";  //数据库用户密码
-			conn = DriverManager.getConnection(url, username, password);  //连接状态
-			if(conn == null)
-			{  
-			    out.print("连接失败！");  
-			}
-			st = conn.createStatement();
-			String sql_search = "select * from contents where name like " + "'%" +str + "%'";
-			rs = st.executeQuery(sql_search);
-			if(rs.wasNull() == true) {
-				out.print("对不起没有关于" + str + "的书");
-				return;
-			}
-			out.print("<table>");
-			out.print("<tr><th>书名</th><th>作者</th><th>出版社</th><th>ISBN</th></tr>");
-			while (rs.next()){
-				out.print("<tr>");
-				out.print("<td>" + rs.getString("name") + "</td>");
-				out.print("<td>" + rs.getString("author") + "</td>");
-				out.print("<td>" + rs.getString("publish") + "</td>");
-				out.print("<td>" + rs.getString("ISBN") + "</td>");
-				out.print("</tr>");
-			}
-	      	}catch(Exception e){        
-				out.print("数据库连接异常！"); 
-			}
-			finally{
-				rs.close();
-				st.close();
-				conn.close();
+		conn = conpool.getOneCon();
+			if(conn != null)
+			{
+			    st = conn.createStatement();
+				String sql_search = "select * from contents where name like " + "'%" +str + "%'";
+				rs = st.executeQuery(sql_search);
+				if(rs.isBeforeFirst()==false) {
+					out.print("对不起没有关于" + str + "的书");
+					return;
+				}else{
+					
+					out.print("<table >");
+					out.print("<tr><th>书名</th><th>作者</th><th>出版</th><th>ISBN</th></tr>");
+					while (rs.next()){
+%>
+						<tr>
+						<td><%=rs.getString("name") %></td>
+						<td><%=rs.getString("author") %></td>
+						<td><%=rs.getString("publish") %></td>
+						<td><%=rs.getString("ISBN") %></td>
+						<td><a href="bookinfo.jsp?book_id=<%=rs.getString("book_id")%>">详细信息</a></td>    
+						</tr>
+<%
+					}
+					out.print("</table>");
+					out.print("</form>");
+				}
+			}else{
+				out.print("连接失败");
 			}
 	} else if(str == "")
 	{
@@ -64,5 +73,6 @@
 	}
 	
 %>
+</table>
 </body>
 </html>

@@ -11,9 +11,9 @@
 <body>
 <h1>读者信息</h1>
 <%
-	Boolean str = (Boolean)session.getAttribute("login");
-	if(str == null) {
-		response.sendRedirect("admin-login.jsp");
+	String str = (String)session.getAttribute("type");
+	if(str == "admin" || str == null) {
+		response.sendRedirect("reader-login.jsp");
 		return;
 	}
 %>

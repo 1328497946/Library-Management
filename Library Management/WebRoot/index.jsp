@@ -12,8 +12,17 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+<%
+	String str = (String)session.getAttribute("user");
+	if(str == null) {
+		str = "未登录";
+	}
+	String type = (String)session.getAttribute("type");
+	if(type == null) {
+		type="";
+	}
+%>
 <header>
-	<h1>图书馆管理系统</h1>
 	<ul>
 		<li><a href="booksearch.jsp">图书查询</a></li>
 		<li><a href="readerinfo.jsp">读者信息</a></li>
@@ -22,10 +31,15 @@
 		<li><a href="#">读者规则</a></li>
 		<li><a href="admin-login.jsp">管理员界面</a>
 	</ul>
+	<h1><a href="index.jsp">图书管理系统</a></h1>
+	<p><%
+			out.print(type);
+			out.print(str);
+	%></p>
 </header>
-<h2>最新上架的10本书</h2>
+<h2>最新上架的30本书</h2>
 <table>
-	<tr><th>书名</th><th>作者</th><th>出版社</th><th>出版日期</th><th>简介</th><th>ISBN</th><th>语言</th><th>价格</th><th>库存</th></tr>
+<tr><th>书名</th><th>出版社</th><th>作者</th><th>出版日期</th><th>简介</th><th>ISBN</th><th>语言</th><th>价格</th><th>库存</th></tr>
 	<jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
 	<%
 		Statement st = null;
@@ -38,18 +52,17 @@
 				return;
 			}
 			st = con.createStatement();
-			rs = st.executeQuery("select * from contents limit 0,10");
+			rs = st.executeQuery("select * from contents limit 0,30");
 			while(rs.next()) {
-				out.print("<tr>");
-				out.print("<td>"+rs.getString("name")+"</td>");
+				out.print("<tr><td>"+rs.getString("name")+"</td>");
 				out.print("<td>"+rs.getString("author")+"</td>");
 				out.print("<td>"+rs.getString("publish")+"</td>");
 				out.print("<td>"+rs.getString("pub_date")+"</td>");
-				out.print("<td>"+rs.getString("introduction").subSequence(0,20)+"...</td>");
+				out.print("<td>"+rs.getString("introduction").subSequence(0,7)+"...</td>");
 				out.print("<td>"+rs.getString("ISBN")+"</td>");
 				out.print("<td>"+rs.getString("language")+"</td>");
 				out.print("<td>"+rs.getString("price")+"</td>");
-				out.print("<td>"+rs.getString("surplus")+"</td>");
+				out.print("<td>"+rs.getString("surplus")+"</td></tr>");
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -67,5 +80,8 @@
 		}
 	%>
 </table>
+<footer>
+<small>All rights reserved. Copyright&copy; Mr.Zhu Mr.Yao Mr.Wang</small>
+</footer>
 </body>
 </html>
