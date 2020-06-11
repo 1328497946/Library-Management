@@ -9,22 +9,33 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-<h1>读者信息</h1>
 <%
 	String str = (String)session.getAttribute("user");
 	String type = (String)session.getAttribute("type");
 	if(str == null || type != "reader") {
-		response.getWriter().print("非法访问，3秒后自动跳转");
-		response.setHeader("Refresh", "3;URL=reader-login.jsp");
-		return;
-	}
-	request.setCharacterEncoding("utf-8");
-	String username = request.getParameter("reader_id");
-	if(username == null) {
-		response.setHeader("Refresh", "3;URL=reader-login.jsp");
+		response.sendRedirect("reader-login.jsp");
 		return;
 	}
 %>
+<header>
+	<ul>
+		<li><a href="booksearch.jsp">图书查询</a></li>
+		<li><a href="reader-login.jsp">读者信息</a></li>
+		<li><a href="lendhistory.jsp">借阅历史</a></li>
+		<li><a href="error.jsp">违章信息</a></li>
+		<li><a href="rules.jsp">读者规则</a></li>
+		<li><a href="admin-login.jsp">管理员界面</a>
+	</ul>
+	<h1><a href="index.jsp">图书管理系统</a></h1>
+	<p><%
+		if(str==null||type!="reader"){
+			out.print("未登录");
+		}else {
+			out.print("<a href='logout.jsp'>读者"+str+"</a>");
+		};
+	%></p>
+</header>
+<h1>读者信息</h1>
 <jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
 <table>
 	<tr><th>姓名</th><th>性别</th><th>生日</th><th>地址</th><th>电话</th><th>邮箱</th></tr>
@@ -39,7 +50,7 @@
 				return;
 			}
 			st = con.createStatement();
-			rs = st.executeQuery("select * from readers where reader_id="+username);
+			rs = st.executeQuery("select * from readers where reader_id="+str);
 			while(rs.next()) {
 				out.print("<tr>");
 				out.print("<td>"+rs.getString("name")+"</td>"); 

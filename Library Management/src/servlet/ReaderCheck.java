@@ -85,7 +85,7 @@ public class ReaderCheck extends HttpServlet {
 				HttpSession session =  request.getSession();
 				session.setAttribute("user", username);
 				session.setAttribute("type", "reader");
-				response.sendRedirect("readerinfo.jsp"+"?reader_id="+username);
+				response.sendRedirect("readerinfo.jsp");
 			} else {
 				response.getWriter().println("用户名密码错误!3秒后自动跳转");
 				//out.print("用户名密码错误!3秒后自动跳转");
