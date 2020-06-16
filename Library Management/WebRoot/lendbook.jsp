@@ -12,7 +12,7 @@
 	<body>
 		<%
 			String book_id = request.getParameter("book_id");
-		out.print(book_id);
+		    //out.print(book_id);
 			String str1 = (String)session.getAttribute("user");
 			String type = (String)session.getAttribute("type");
 			//String readerid = "1";
@@ -25,7 +25,9 @@
 				Connection conn = null;
 				//application.setAttribute("ser_num", "0"); 
 			
-					conn = conpool.getOneCon();
+					//conn = conpool.getOneCon();
+					Class.forName("com.mysql.jdbc.Driver");
+					conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8&serverTimezone=UTC", "root", "123456");
 					java.util.Date now = new java.util.Date();
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					String lend_date = dateFormat.format( now ); 
@@ -33,10 +35,14 @@
 			        calendar.setTime(now);//把当前时间赋给日历
 			        calendar.add(Calendar.DAY_OF_MONTH, 60); //设置为后2月，可根据需求进行修改
 			        now = calendar.getTime();//获取2个月后的时间
-			        String back_date = dateFormat.format( now );
+			        String shuold_back_time = dateFormat.format( now );
 			        //out.print(should_back_time);
-			        String sql_insert = "insert into bookrend(reader_id,book_id,lend_date,timeout_date) values("+Integer.parseInt(str1)+','+Integer.parseInt(book_id)+","+"'"+lend_date+"'"+","+"'"+back_date+"'"+");";
+			        String sql_insert = "insert into bookrend(reader_id,book_id,lend_date,shuold_back_time) values(?,?,?,?)";
 			        pstm=conn.prepareStatement(sql_insert);
+			        pstm.setString(1,str1);
+			        pstm.setString(2,book_id);
+			        pstm.setString(3,lend_date);
+			        pstm.setString(4,shuold_back_time);
 			        //pstm.setString(6, "未归还");
 			        try {
 			        	rs =pstm.executeUpdate();

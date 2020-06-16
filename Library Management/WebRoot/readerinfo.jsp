@@ -44,7 +44,9 @@
 		ResultSet rs = null;
 		Connection con = null;
 		try {
-			con = conpool.getOneCon();
+			//con = conpool.getOneCon();
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8&serverTimezone=UTC", "root", "123456");
 			if(con == null) {
 				out.print("人数过多，稍后访问");
 				return;
