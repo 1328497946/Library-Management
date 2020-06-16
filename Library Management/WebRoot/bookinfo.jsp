@@ -47,7 +47,9 @@
 			Statement st = null;
 			ResultSet rs = null;
 			Connection conn = null;
-			conn = conpool.getOneCon();
+			//conn = conpool.getOneCon();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8&serverTimezone=UTC", "root", "123456");
 			if(conn != null){
 				st = conn.createStatement();
 				String sql_search = "select * from contents where book_id=" + book_id;

@@ -62,7 +62,9 @@
 			ResultSet rs = null;
 			ResultSet rs1 = null;
 			Connection conn = null;
-			conn = conpool.getOneCon();
+			//conn = conpool.getOneCon();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8&serverTimezone=UTC", "root", "123456");
 			if(conn!=null){
 				st = conn.createStatement();
 				String sql_Query = "select * from bookrend where reader_id="+readerid;
@@ -77,13 +79,13 @@
 				out.print("<td>"+rs.getString("book_id")+"</td>");
 				out.print("<td>"+rs1.getString("name")+"</td>");
 				out.print("<td>"+rs.getString("lend_date")+"</td>");
-				out.print("<td>"+rs.getString("back_date")+"</td>");
+				out.print("<td>"+rs.getString("shuold_back_time")+"</td>");
 				out.print("<td>"+rs.getString("back_date")+"</td>");
 				out.print("<td>"+rs.getString("timeout")+"</td>");		
 				out.print("<td>"+rs.getString("timeout_days")+"</td>");
 				out.print("</td>");
 			if(rs.getString("back_date")==null){
-				out.print("<td><a href='归还.jsp?ser_num="+rs.getString("ser_num")+"'>归还</a></td>");
+				out.print("<td><a href='归还.jsp?ser_num="+rs.getString("book_id")+"'>归还</a></td>");
 			}else{
 				out.print("<td>已归还</td>");
 			}

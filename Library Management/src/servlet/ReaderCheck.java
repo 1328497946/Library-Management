@@ -31,7 +31,7 @@ public class ReaderCheck extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=utf-8");
-		response.getWriter().print("非法访问，3秒后自动跳转");
+		response.getWriter().print("闈炴硶璁块棶锛�3绉掑悗鑷姩璺宠浆");
 		response.setHeader("Refresh", "3;URL=reader-login.jsp");
 	}
 
@@ -42,14 +42,14 @@ public class ReaderCheck extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			response.getWriter().println(e.getStackTrace());
 		}
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8", "root", "root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?characterEncoding=utf-8&serverTimezone=UTC", "root", "123456");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			response.getWriter().println(e.getStackTrace());
@@ -62,8 +62,8 @@ public class ReaderCheck extends HttpServlet {
 		ResultSet rs = null;
 		ResultSet rs1 = null;
 		if(username == "" || password == "") {
-			response.getWriter().println("<p>请输如用户名字与密码！</p>");
-			//out.print("请输如用户名字和密码!");
+			response.getWriter().println("<p>璇疯緭濡傜敤鎴峰悕瀛椾笌瀵嗙爜锛�</p>");
+			//out.print("璇疯緭濡傜敤鎴峰悕瀛楀拰瀵嗙爜!");
 			response.setHeader("Refresh", "3;URL=admin-login.jsp");
 			return;
 		}
@@ -81,14 +81,14 @@ public class ReaderCheck extends HttpServlet {
 		}
 		try {
 			if(rs.next()) {
-				//out.print("登录成功");
+				//out.print("鐧诲綍鎴愬姛");
 				HttpSession session =  request.getSession();
 				session.setAttribute("user", username);
 				session.setAttribute("type", "reader");
 				response.sendRedirect("readerinfo.jsp");
 			} else {
-				response.getWriter().println("用户名密码错误!3秒后自动跳转");
-				//out.print("用户名密码错误!3秒后自动跳转");
+				response.getWriter().println("鐢ㄦ埛鍚嶅瘑鐮侀敊璇�!3绉掑悗鑷姩璺宠浆");
+				//out.print("鐢ㄦ埛鍚嶅瘑鐮侀敊璇�!3绉掑悗鑷姩璺宠浆");
 				response.setHeader("Refresh", "3;URL=reader-login.jsp");
 			}
 		} catch (SQLException e) {
