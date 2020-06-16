@@ -9,33 +9,7 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-<%
-	String str = (String)session.getAttribute("user");
-	String type = (String)session.getAttribute("type");
-	if(str == null || type != "admin") {
-		response.getWriter().print("非法访问，3秒后自动跳转");
-		response.setHeader("Refresh", "3;URL=admin-login.jsp");
-		return;
-	}
-%>
-<header>
-	<ul>
-		<li><a href="booksearch.jsp">图书查询</a></li>
-		<li><a href="readerinfo.jsp">读者信息</a></li>
-		<li><a href="lendhistory.jsp">借阅历史</a></li>
-		<li><a href="error.jsp">违章信息</a></li>
-		<li><a href="rules.jsp">读者规则</a></li>
-		<li><a href="admin-login.jsp">管理员界面</a>
-	</ul>
-	<h1><a href="index.jsp">图书管理系统</a></h1>
-	<p><%
-		if(str==null||type!="admin"){
-			out.print("未登录");
-		}else {
-			out.print("<a href='logout.jsp'>管理员"+str+"</a>");
-		};
-	%></p>
-</header>
+<jsp:include page="include/header.jsp"/>
 <h1>图书馆所有的书籍</h1>
 <table>
 	<tr><th>书名</th><th>作者</th><th>出版社</th><th>出版日期</th><th>简介</th><th>ISBN</th><th>语言</th><th>价格</th><th>库存</th></tr>

@@ -87,9 +87,9 @@ public class ReaderCheck extends HttpServlet {
 				session.setAttribute("type", "reader");
 				response.sendRedirect("readerinfo.jsp");
 			} else {
-				response.getWriter().println("用户名密码错误!3秒后自动跳转");
+				response.getWriter().println("用户名密码错误!1秒后自动跳转");
 				//out.print("用户名密码错误!3秒后自动跳转");
-				response.setHeader("Refresh", "3;URL=reader-login.jsp");
+				response.setHeader("Refresh", "1;URL=reader-login.jsp");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

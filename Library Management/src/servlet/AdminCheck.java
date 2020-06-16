@@ -86,9 +86,9 @@ public class AdminCheck extends HttpServlet {
 				session.setAttribute("type", "admin");
 				response.sendRedirect("admin-manager.jsp");
 			} else {
-				response.getWriter().println("用户名密码错误!3秒后自动跳转");
+				response.getWriter().println("用户名密码错误!1秒后自动跳转");
 				//out.print("用户名密码错误!3秒后自动跳转");
-				response.setHeader("Refresh", "3;URL=admin-login.jsp");
+				response.setHeader("Refresh", "1;URL=admin-login.jsp");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -1,9 +1,17 @@
+ html {
+        font-size: 22px;
+    }
     * {
         box-sizing: border-box;
-        color: white;
-        font-family: "宋体";
+    }
+    body {
+        /*background-image: url('../images/library.jpg');*/
+        max-width: 790px;
+        margin: .2em auto;
     }
     header ul {
+        margin: 0;
+        padding: 0;
         width: 100%;
         display: flex;
     }
@@ -11,59 +19,76 @@
         list-style: none;
         width: 16.7%;
         text-align: center;
-        background-color: rgba(0,0,0,.8);
     }
     header li a{
-        color: ghostwhite;
+        font-size: .8em;
         font-weight: bold;
+        color: burlywood;
         text-decoration: none;
         display: block;
-        padding: .5em 0 .8em 0;
-        border-bottom: 1px solid;
         transition: all .5s;
+        border-left: 1px solid;
+    }
+    header li:first-of-type a{
+        border-left: none;
     }
     header li a:visited {
-        color: antiquewhite;
+        color: antique;
     }
     header li a:hover {
         color: black;
-        background-color: white;
-    }
-    body {
-        background-image: url('../images/library.jpg');
-        background-color: rgba(0,0,0,.5);
-        max-width: 790px;
-        margin: 1em auto;
+        background-color: gainsboro;
     }
     header h1 {
-        padding: .5em 0;
+        margin: .1em 0;
         text-align: right;
+        font-style: italic;
+        padding: .2em .5em 0;
+    }
+    header h1 a {
+        color: burlywood;
+        text-shadow: 1px 1px .5px;
+        text-decoration: none;
     }
     header p {
+        font-size: .8em;
     	text-align: right;
-    }
-    label {
-        font-size: 1.4em;
-        display: block;
-        padding: .5em;
-    }
-    input[type="text"],
-    input[type="password"] {
-        height: 30px;
-        color: black;
+        margin: 0;
+        padding: .2em 0;
         font-weight: bold;
+        border-top: 1px solid black;
     }
-    input[type="submit"] {
-        color: white;
-        font-size: 1.3em;
+    header p a {
+        color: burlywood;
+        text-decoration: none;
+        border-radius: 10px;
+        padding: .2em .1em;
+        margin-left: .2em;
+    }
+    h2 {
+        font-size: 1em;
+    }
+    table {
+        width: 100%;
+        font-size: .5em;
+        border-collapse: collapse;
+    }
+    table tbody tr {
+        border-bottom: 1px solid;
+    }
+    table td {
+        padding: .6em .5em;
+        text-align: right;
+    }
+    table tr:nth-child(odd) {
+        background-color: lightblue;
+    }
+    table tr:first-of-type {
         background-color: transparent;
-        width: 100px;
-        height: 30px;
-        margin-top: 10px;
-        margin-left: 90px;;
-        cursor: pointer;
     }
-    input[type="submit"]:hover {
-        color: black;
-        background-color: white;
+    footer {
+    	font-weight: bold;
+        text-align: right;
+        font-size: .6em;
+        margin: .5em 0;
     }

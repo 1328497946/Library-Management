@@ -10,34 +10,11 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-<%
-	String str1 = (String)session.getAttribute("user");
-	String type = (String)session.getAttribute("type");
-%>
-<header>
-	<ul>
-		<li><a href="booksearch.jsp">图书查询</a></li>
-		<li><a href="readerinfo.jsp">读者信息</a></li>
-		<li><a href="lendhistory.jsp">借阅历史</a></li>
-		<li><a href="error.jsp">违章信息</a></li>
-		<li><a href="rules.jsp">读者规则</a></li>
-		<li><a href="admin-login.jsp">管理员界面</a>
-	</ul>
-	<h1><a href="index.jsp">图书管理系统</a></h1>
-	<p><%
-		if(str1==null&&type==null){
-			out.print("未登录");
-		}else if(type=="admin"){
-			out.print("<a href='logout.jsp'>管理员"+str1+"</a>");
-		}else if(type=="reader"){
-			out.print("<a href='logout.jsp'>读者"+str1+"</a>");
-		};
-	%></p>
-</header>
+<jsp:include page="include/header.jsp"/>
 <form action="" method="get">
-	<label>Book Search
+	<label>图书搜索
 		<input type="search" name="search">
-		<input type="submit" value="Search">
+		<input type="submit" value="搜搜">
 	</label>
 </form>
 <jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
@@ -62,7 +39,7 @@
 				}else{
 					
 					out.print("<table >");
-					out.print("<tr><th>书名</th><th>作者</th><th>出版</th><th>ISBN</th></tr>");
+					out.print("<tr><th>书名</th><th>作者</th><th>出版</th><th>ISBN</th><th>备注</th></tr>");
 					while (rs.next()){
 %>
 						<tr>
@@ -84,7 +61,6 @@
 	{
 		out.print("请输入搜索的书名");
 	}
-	
 %>
 </table>
 </body>

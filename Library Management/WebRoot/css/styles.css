@@ -1,9 +1,17 @@
+html {
+        font-size: 22px;
+    }
     * {
         box-sizing: border-box;
-        color: white;
-        font-family: "宋体";
+    }
+    body {
+        /*background-image: url('../images/library.jpg');*/
+        max-width: 790px;
+        margin: .2em auto;
     }
     header ul {
+        margin: 0;
+        padding: 0;
         width: 100%;
         display: flex;
     }
@@ -11,67 +19,101 @@
         list-style: none;
         width: 16.7%;
         text-align: center;
-        background-color: rgba(0,0,0,.8);
     }
     header li a{
-        color: ghostwhite;
+        font-size: .8em;
         font-weight: bold;
+        color: burlywood;
         text-decoration: none;
         display: block;
-        padding: .5em 0 .8em 0;
-        border-bottom: 1px solid;
         transition: all .5s;
+        border-left: 1px solid;
+    }
+    header li:first-of-type a{
+        border-left: none;
     }
     header li a:visited {
-        color: antiquewhite;
+        color: antique;
     }
     header li a:hover {
         color: black;
-        background-color: white;
+        background-color: gainsboro;
     }
-    body {
-        background-image: url('../images/library.jpg');
-        background-color: rgba(0,0,0,.5);
-        max-width: 790px;
-        margin: 1em auto;
+    h1 {
+    	font-size: 1.3em;
+    	font-weight: 100;
     }
     header h1 {
-        padding: .5em 0;
+        margin: .1em 0;
         text-align: right;
+        font-style: italic;
+        padding: .2em .5em 0;
+        font-weight: 200;
+    }
+    header h1 a {
+        color: burlywood;
+        text-shadow: 1px 1px .5px;
+        text-decoration: none;
     }
     header p {
+        font-size: .8em;
     	text-align: right;
+        margin: 0;
+        padding: .2em 0;
+        font-weight: bold;
+        border-top: 1px solid black;
+    }
+    header p a {
+        color: burlywood;
+        text-decoration: none;
+        border-radius: 10px;
+        padding: .2em .1em;
+        margin-left: .2em;
+    }
+    h2 {
+        font-size: 1em;
     }
     table {
         width: 100%;
-        font-size: .8em;      
+        font-size: .5em;
+        border-collapse: collapse;
     }
-    table tr th {
-        font-weight: bold;
-        font-size: larger;
+    table tbody tr {
         border-bottom: 1px solid;
-        padding: 1.3em 0;
-        text-align: left;
     }
-    table td {
-        padding: .6em 0;
-        border-bottom: .5px solid;
-        text-align: left;
+    table td, table th{
+        padding: .6em .5em;
+        text-align: right;
+    }
+    table td a{
+    	color: black;
+    	text-decoraction: none;
     }
     table tr:nth-child(odd) {
-        background-color: rgba(125,125,125, .8);
+        background-color: lightblue;
     }
     table tr:first-of-type {
         background-color: transparent;
     }
     footer {
-    	margin: 1.5em;
     	font-weight: bold;
+        text-align: right;
+        font-size: .6em;
+        margin: .5em 0;
     }
-    input[type="text"],
-    input[type='password'],
-    input[type='search'],
-    input[type='submit'] {
-    	color: black;
-    	padding: .3em;
+    form {
+    	text-align: center;
+    }
+    label {
+    	font-size: .9em;
+    }
+    h3 {
+    	font-weight: 100;
+    }
+    form#info {
+    	font-size: .7em;
+    	text-align: left;
+    }
+    p.info {
+    	font-size: .9em;	
     }

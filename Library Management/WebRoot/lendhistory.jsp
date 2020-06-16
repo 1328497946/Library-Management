@@ -14,32 +14,9 @@
 	<%
 			String readerid = (String)session.getAttribute("user");
 			String str = readerid;
-			String str1 = (String)session.getAttribute("user");
-			String type = (String)session.getAttribute("type");
-			//String readerid = "1";
-			if(str1 ==null || type!="reader"){
-				response.getWriter().print("请先登录，3秒后自动跳转");
-				response.setHeader("Refresh", "3;URL=reader-login.jsp");
-				return;
-			}
-			%>
-	<ul>
-		<li><a href="booksearch.jsp">图书查询</a></li>
-		<li><a href="reader-login.jsp">读者信息</a></li>
-		<li><a href="lendhistory.jsp">借阅历史</a></li>
-		<li><a href="error.jsp">违章信息</a></li>
-		<li><a href="rules.jsp">读者规则</a></li>
-		<li><a href="admin-login.jsp">管理员界面</a>
-	</ul>
-	
-	<h1><a href="index.jsp">图书管理系统</a></h1>
-	<p><%
-		if(str==null||type!="reader"){
-			out.print("未登录");
-		}else {
-			out.print("<a href='logout.jsp'>读者"+str+"</a>");
-		};
-	%></p>
+
+	%>
+	<jsp:include page="include/header.jsp"/>
 </header>
 	
 	<jsp:useBean id="conpool" class="mysql.ConnPool" scope="application"/>
@@ -77,13 +54,13 @@
 				out.print("<td>"+rs.getString("book_id")+"</td>");
 				out.print("<td>"+rs1.getString("name")+"</td>");
 				out.print("<td>"+rs.getString("lend_date")+"</td>");
-				out.print("<td>"+rs.getString("back_date")+"</td>");
+				out.print("<td>"+rs.getString("should_backday")+"</td>");
 				out.print("<td>"+rs.getString("back_date")+"</td>");
 				out.print("<td>"+rs.getString("timeout")+"</td>");		
 				out.print("<td>"+rs.getString("timeout_days")+"</td>");
 				out.print("</td>");
 			if(rs.getString("back_date")==null){
-				out.print("<td><a href='归还.jsp?ser_num="+rs.getString("ser_num")+"'>归还</a></td>");
+				out.print("<td><a href='归还.jsp?'>归还</a></td>");
 			}else{
 				out.print("<td>已归还</td>");
 			}

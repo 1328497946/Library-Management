@@ -35,14 +35,14 @@
 			        now = calendar.getTime();//获取2个月后的时间
 			        String back_date = dateFormat.format( now );
 			        //out.print(should_back_time);
-			        String sql_insert = "insert into bookrend(reader_id,book_id,lend_date,back_date) values("+Integer.parseInt(str1)+','+Integer.parseInt(book_id)+","+"'"+lend_date+"'"+","+"'"+back_date+"'"+");";
+			        String sql_insert = "insert into bookrend(reader_id,book_id,lend_date,timeout_date) values("+Integer.parseInt(str1)+','+Integer.parseInt(book_id)+","+"'"+lend_date+"'"+","+"'"+back_date+"'"+");";
 			        pstm=conn.prepareStatement(sql_insert);
 			        //pstm.setString(6, "未归还");
 			        try {
 			        	rs =pstm.executeUpdate();
 			        	if(rs>0){
-				        	response.getWriter().print("借阅成功，3秒后自动跳转");
-				    		response.setHeader("Refresh", "3;URL=lendhistory.jsp");
+				        	response.getWriter().print("借阅成功，1秒后自动跳转");
+				    		response.setHeader("Refresh", "1;URL=lendhistory.jsp");
 				        }
 			        } catch(SQLException e) {
 						e.printStackTrace();
