@@ -9,7 +9,14 @@
 		<meta charset="utf-8">
 		<title>违章信息</title>
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
-		
+			<%
+	String str2 = (String)session.getAttribute("user");
+	String type = (String)session.getAttribute("type");
+	if(null == str2 || type != "reader") {
+		response.sendRedirect("reader-login.jsp");
+		return;
+	}
+%>
 	</head>
 	<body>
 	<jsp:include page="include/header.jsp"/>

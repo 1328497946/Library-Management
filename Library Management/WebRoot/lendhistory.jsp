@@ -12,6 +12,14 @@
 	<body>
 	<header>
 	<%
+	String str2 = (String)session.getAttribute("user");
+	String type = (String)session.getAttribute("type");
+	if(null == str2 || type != "reader") {
+		response.sendRedirect("reader-login.jsp");
+		return;
+	}
+%>
+	<%
 			String readerid = (String)session.getAttribute("user");
 			String str = readerid;
 

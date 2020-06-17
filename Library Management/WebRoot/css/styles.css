@@ -117,3 +117,6 @@ html {
     p.info {
     	font-size: .9em;	
     }
+    h1 a {
+    	color: black;
+    }
