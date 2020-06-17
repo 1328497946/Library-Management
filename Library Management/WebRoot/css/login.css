@@ -1,0 +1,94 @@
+ html {
+        font-size: 22px;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        /*background-image: url('../images/library.jpg');*/
+        max-width: 790px;
+        margin: .2em auto;
+    }
+    header ul {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        display: flex;
+    }
+    header li {
+        list-style: none;
+        width: 16.7%;
+        text-align: center;
+    }
+    header li a{
+        font-size: .8em;
+        font-weight: bold;
+        color: burlywood;
+        text-decoration: none;
+        display: block;
+        transition: all .5s;
+        border-left: 1px solid;
+    }
+    header li:first-of-type a{
+        border-left: none;
+    }
+    header li a:visited {
+        color: antique;
+    }
+    header li a:hover {
+        color: black;
+        background-color: gainsboro;
+    }
+    header h1 {
+        margin: .1em 0;
+        text-align: right;
+        font-style: italic;
+        padding: .2em .5em 0;
+    }
+    header h1 a {
+        color: burlywood;
+        text-shadow: 1px 1px .5px;
+        text-decoration: none;
+    }
+    header p {
+        font-size: .8em;
+    	text-align: right;
+        margin: 0;
+        padding: .2em 0;
+        font-weight: bold;
+        border-top: 1px solid black;
+    }
+    header p a {
+        color: burlywood;
+        text-decoration: none;
+        border-radius: 10px;
+        padding: .2em .1em;
+        margin-left: .2em;
+    }
+    h2 {
+        font-size: 1em;
+    }
+    table {
+        width: 100%;
+        font-size: .5em;
+        border-collapse: collapse;
+    }
+    table tbody tr {
+        border-bottom: 1px solid;
+    }
+    table td {
+        padding: .6em .5em;
+        text-align: right;
+    }
+    table tr:nth-child(odd) {
+        background-color: lightblue;
+    }
+    table tr:first-of-type {
+        background-color: transparent;
+    }
+    footer {
+    	font-weight: bold;
+        text-align: right;
+        font-size: .6em;
+        margin: .5em 0;
+    }
